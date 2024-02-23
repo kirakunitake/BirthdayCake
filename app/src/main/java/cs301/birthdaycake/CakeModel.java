@@ -5,5 +5,8 @@ public class CakeModel {
     public int numCandles = 2;
     public boolean hasFrosting = true;
     public boolean hasCandles = true;
+    public boolean touch = false;
+    public float touchX;
+    public float touchY;
 
 }
