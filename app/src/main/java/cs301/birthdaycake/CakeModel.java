@@ -8,5 +8,8 @@ public class CakeModel {
     public float balloonX = 0;
     public float balloonY = 0;
     public boolean hasCandles = true;
+    public boolean touch = false;
+    public float touchX;
+    public float touchY;
 
 }

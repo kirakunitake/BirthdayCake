@@ -52,13 +52,17 @@ public CakeController(CakeView cakeView){
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
+
     @Override
-    public boolean onTouch(View v, MotionEvent m) {
+    public boolean onTouch(View v, MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+        cakeModel.touch = true;
         cakeModel.balloon = true;
-        float x = m.getX();
-        float y = m.getY();
-        cakeModel.balloonX = x;
+        cakeModel.touchX = x;
+        cakeModel.touchY = y;
         cakeModel.balloonY = y;
+        cakeModel.balloonX = x;
         cakeView.invalidate();
         return true;
     }
