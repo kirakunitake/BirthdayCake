@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
+import android.graphics.Rect;
+
 
 public class CakeView extends SurfaceView {
     private CakeModel cakeModel;
@@ -35,12 +37,18 @@ public class CakeView extends SurfaceView {
     public static final float outerFlameRadius = 30.0f;
     public static final float innerFlameRadius = 15.0f;
 
+    // Define numCheckers and checkerSize as a constant for the checkerboard size
+    private static final int numCheckers = 8;
+    private static final int checkerSize = 50;
+
 
 
     /**
      * ctor must be overridden here as per standard Java inheritance practice.  We need it
      * anyway to initialize the member variables
      */
+
+    private Paint checkerBoardPaint = new Paint();
     public CakeView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -64,6 +72,11 @@ public class CakeView extends SurfaceView {
         wickPaint.setStyle(Paint.Style.FILL);
 
         setBackgroundColor(Color.WHITE);  //better than black default
+
+        // Initialize checkerBoardPaint here
+        checkerBoardPaint.setStyle(Paint.Style.FILL);
+
+
 
     }
 
@@ -94,6 +107,26 @@ public class CakeView extends SurfaceView {
         }
 
     }
+
+
+    //method to draw the checkerboard pattern
+    private void drawCheckerboard(Canvas canvas) {
+        for (int i = 0; i < numCheckers; i++) {
+            for (int j = 0; j < numCheckers; j++) {
+                if ((i + j) % 2 == 0) {
+                    checkerBoardPaint.setColor(Color.GREEN);
+                } else {
+                    checkerBoardPaint.setColor(Color.RED);
+                }
+                int left = (int)(cakeModel.touchX - (numCheckers / 2.0f) * checkerSize + i * checkerSize);
+                int top = (int)(cakeModel.touchY - (numCheckers / 2.0f) * checkerSize + j * checkerSize);
+                Rect rect = new Rect(left, top, left + checkerSize, top + checkerSize);
+                canvas.drawRect(rect, checkerBoardPaint);
+            }
+        }
+    }
+
+
 
     /**
      * onDraw is like "paint" in a regular Java program.  While a Canvas is
@@ -131,6 +164,11 @@ public class CakeView extends SurfaceView {
             for(int i = 1; i <= cakeModel.numCandles; i++){
                 drawCandle(canvas, (cakeWidth*i/(cakeModel.numCandles+1))+cakeLeft, cakeTop);
             }
+        }
+
+        // Draw the checkerboard pattern if checkerboardVisible is true
+        if (cakeModel.checkerboardVisible) {
+            drawCheckerboard(canvas);
         }
 
     }//onDraw
