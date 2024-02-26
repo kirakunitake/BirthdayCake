@@ -13,8 +13,7 @@ public class CakeModel {
     public float touchY;
 
     // Fields for the checkerboard pattern
-    public float touchX = -1;
-    public float touchY = -1;
+
     public boolean checkerboardVisible = false;
 
 }

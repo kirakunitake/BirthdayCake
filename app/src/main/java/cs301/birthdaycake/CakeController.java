@@ -57,7 +57,7 @@ private CakeModel cakeModel;
         // Intentionally left blank
     }
 
-    }
+
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {

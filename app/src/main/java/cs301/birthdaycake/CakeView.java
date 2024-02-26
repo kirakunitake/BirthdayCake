@@ -41,7 +41,7 @@ public class CakeView extends SurfaceView {
     public static final float innerFlameRadius = 15.0f;
 
     // Define numCheckers and checkerSize as a constant for the checkerboard size
-    private static final int numCheckers = 8;
+    private static final int numCheckers = 2;
     private static final int checkerSize = 50;
 
 
