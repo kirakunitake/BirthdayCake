@@ -4,15 +4,15 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 
 public class CakeController implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener,
-        SeekBar.OnSeekBarChangeListener,
-        View.OnTouchListener { // Correctly declare that this class implements OnTouchListener
-
-    private CakeView cakeView;
-    private CakeModel cakeModel;
+        SeekBar.OnSeekBarChangeListener, View.OnTouchListener
+{
+private CakeView cakeView;
+private CakeModel cakeModel;
 
     // Initialize the touch listener in the constructor
     public CakeController(CakeView cakeView) {
@@ -23,9 +23,9 @@ public class CakeController implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        Log.d("cake", "click!");
-        cakeModel.candlesLit = false;
-        cakeView.invalidate();
+    Log.d("cake","click!");
+    cakeModel.candlesLit = false;
+    cakeView.invalidate();
     }
 
     // This method is named to appear like an override but it's not correctly named for any interface method
@@ -57,9 +57,20 @@ public class CakeController implements View.OnClickListener,
         // Intentionally left blank
     }
 
-    // This method is correctly overridden from the OnTouchListener interface
+    }
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+        cakeModel.touch = true;
+        cakeModel.balloon = true;
+        cakeModel.touchX = x;
+        cakeModel.touchY = y;
+        cakeModel.balloonY = y;
+        cakeModel.balloonX = x;
+        cakeView.invalidate();
+
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             cakeModel.touchX = event.getX();
             cakeModel.touchY = event.getY();
